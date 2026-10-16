@@ -169,25 +169,5 @@ For each circuit, record:
 ## 8. Result
 
 The logic circuits are designed, implemented, and verified using Boolean algebra and digital logic gates. The original and simplified circuits are compared based on gate count and logic depth.
-
-## 9. Repository Structure
-
-```text
-EXPERIMENT-01-BUILDING-LOGICAL-CIRCUITS/
-├── README.md
-├── circuit_diagrams/
-├── truth_tables/
-├── simulation_files/
-└── results/
-```
-
-## 10. Viva Questions
-
-1. What are universal logic gates?
-2. State De Morgan's theorems.
-3. What is the difference between SOP and POS?
-4. How does XOR differ from XNOR?
-5. How can Boolean expressions be simplified?
-6. How many truth-table rows are required for six inputs?
-7. What is logic depth?
-8. Why is functional verification necessary?
+ 
+ 
