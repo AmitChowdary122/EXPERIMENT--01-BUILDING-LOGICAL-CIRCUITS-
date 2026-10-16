@@ -160,10 +160,12 @@ For each circuit, record:
 - Logic depth
 - Functional equivalence before and after simplification
 
-## 7. Expected Results
+## 7. Expected Results (drop the screenshots of each equations circuit )
 
-The eight Boolean functions should be implemented successfully. Their outputs should match the theoretical truth tables for all input combinations.
 
+
+
+ 
 ## 8. Result
 
 The logic circuits are designed, implemented, and verified using Boolean algebra and digital logic gates. The original and simplified circuits are compared based on gate count and logic depth.
