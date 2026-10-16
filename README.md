@@ -1,174 +1,174 @@
-# EXPERIMENT--01-BUILDING-LOGICAL-CIRCUITS-
-
-
 # EXPERIMENT-01: BUILDING LOGICAL CIRCUITS
 
 ## 1. Aim
 
-To design, implement, and verify digital logic circuits using fundamental logic gates and complex Boolean expressions.
+To design, implement, simplify, and verify combinational logic circuits using Boolean algebra and digital logic gates.
 
-## 2. Objectives
+## 2. Boolean Notation
 
-- Understand the operation of AND, OR, NOT, NAND, NOR, XOR, and XNOR gates.
-- Implement Boolean expressions using logic gates.
-- Construct combinational logic circuits with multiple inputs and outputs.
-- Verify circuit outputs using truth tables.
-- Simplify Boolean expressions using Boolean algebra and De Morgan's theorems.
-- Analyze circuit complexity and identify opportunities for gate-level optimization.
+Use the following notation throughout this experiment:
 
-## 3. Required Components and Tools
-
-- Digital logic trainer kit or breadboard
-- AND, OR, NOT, NAND, NOR, XOR, and XNOR gate ICs
-- Connecting wires and power supply
-- LEDs with suitable current-limiting resistors
-- Digital logic simulator, such as Logisim Evolution, Proteus, or Multisim
-- Truth table and Boolean algebra reference
-
-## 4. Theory
-
-Digital logic circuits operate on binary values:
-
-- **Logic 0:** LOW
-- **Logic 1:** HIGH
-
-Boolean algebra represents digital logic operations mathematically.
-
-| Gate | Boolean expression | Function |
+| Symbol | Meaning | Example |
 |---|---|---|
-| AND | \(Y=A\cdot B\) | Output is 1 when all inputs are 1 |
-| OR | \(Y=A+B\) | Output is 1 when at least one input is 1 |
-| NOT | \(Y=\overline{A}\) | Inverts the input |
-| NAND | \(Y=\overline{AB}\) | Complement of AND |
-| NOR | \(Y=\overline{A+B}\) | Complement of OR |
-| XOR | \(Y=A\oplus B\) | Output is 1 when inputs differ |
-| XNOR | \(Y=\overline{A\oplus B}\) | Output is 1 when inputs match |
+| `!A` | NOT A | `!A` |
+| `A & B` | AND | `A & B` |
+| `A \| B` | OR | `A \| B` |
+| `A ^ B` | XOR | `A ^ B` |
+| `A XNOR B` | XNOR | `A XNOR B` |
 
-## 5. Boolean Logic Equations
+**Important:** In these equations, `!` means NOT, `&` means AND, `|` means OR, and `^` means XOR. Parentheses determine the order of operations.
 
-Implement the following equations using appropriate logic gates. Draw the logic diagram for each equation and verify its output using a truth table.
+## 3. Advanced Boolean Equations
 
-### Equation 1: Four-Input Mixed Logic Circuit
+### Equation 1: Four-Input Sum-of-Products
 
-\[
-Y_1=(A+B)(\overline{C}+D)+AB\overline{D}
-\]
+```text
+F1 = (!A & B & C)
+   | (A & B & !D)
+   | (!B & C & D)
+   | (A & !C & D)
+```
 
-**Challenge:** Implement the circuit using AND, OR, and NOT gates. Minimize the number of gates without changing the output.
+**Inputs:** A, B, C, D  
+**Output:** F1  
+**Challenge:** Simplify the expression and compare gate counts.
 
-### Equation 2: Five-Input Complemented Logic
+### Equation 2: Product-of-Sums Circuit
 
-\[
-Y_2=\overline{(A+B\overline{C})(D+\overline{E})}
-\]
+```text
+F2 = (A | !B | C)
+   & (!A | B | D)
+   & (B | !C | !D)
+```
 
-**Challenge:** Apply De Morgan's theorem and construct an equivalent implementation using NAND and NOR gates.
+**Inputs:** A, B, C, D  
+**Output:** F2  
+**Challenge:** Implement the circuit using NAND gates and verify functional equivalence.
 
-### Equation 3: XOR-Based Logic Circuit
+### Equation 3: Nested Complement Logic
 
-\[
-Y_3=(A\oplus B)(C+\overline{D})+\overline{A}BC
-\]
+```text
+F3 = !(
+       ((! (A | B)) | (C & D))
+       &
+       (A | (!(B | C)))
+     )
+```
 
-**Challenge:** Implement the XOR operation and compare the circuit with an equivalent implementation using only AND, OR, and NOT gates.
+**Inputs:** A, B, C, D  
+**Output:** F3  
+**Challenge:** Apply De Morgan's theorems and implement the circuit using NAND and NOR gates.
 
-### Equation 4: Multi-Level Boolean Expression
+### Equation 4: XOR-XNOR Combinational Circuit
 
-\[
-Y_4=\overline{(A+B)(C+D)}+AB(C+\overline{D})
-\]
+```text
+F4 = ((A XOR B) & (C XNOR D))
+   | (!A & B & (C XOR D))
+```
 
-**Challenge:** Design the circuit using multiple logic levels, derive a simplified expression, and compare the gate count before and after simplification.
+**Inputs:** A, B, C, D  
+**Output:** F4  
+**Challenge:** Compare an XOR/XNOR implementation with a basic-gate implementation.
 
-### Equation 5: Six-Input Logic Function
+### Equation 5: Five-Input Logic Function
 
-\[
-Y_5=(A+B+C)(\overline{A}+D)(B+\overline{E}+F)
-\]
+```text
+F5 = (A & B & !C)
+   | (!A & D & E)
+   | (B & C & !E)
+   | (!B & C & D)
+```
 
-**Challenge:** Construct the circuit using product-of-sums logic. Verify all \(2^6=64\) input combinations.
+**Inputs:** A, B, C, D, E  
+**Output:** F5  
+**Challenge:** Generate and verify all 32 input combinations.
 
-### Equation 6: Nested Complement Logic
+### Equation 6: Six-Input Mixed Logic
 
-\[
-Y_6=\overline{\overline{(A+B)}\cdot\overline{(C+D)}}
-\]
+```text
+F6 = ((A | B) & !(C | D))
+   | ((C XOR E) & (D | G))
+   | (!A & B & E)
+```
 
-**Challenge:** Simplify the expression using De Morgan's theorem and verify its equivalence to the simplified circuit.
+**Inputs:** A, B, C, D, E, G  
+**Output:** F6  
+**Challenge:** Calculate gate count and logic depth. Verify all 64 input combinations.
 
-### Equation 7: Mixed NAND, NOR, and XOR Function
+### Equation 7: NAND-NOR Hybrid Logic
 
-\[
-Y_7=\overline{AB}+\overline{(C+D)}\oplus(EF)
-\]
+```text
+F7 = (! (A & B) & !(C | D))
+   | (!(A | C) & B & D)
+```
 
-**Challenge:** Follow standard operator precedence, implement each subexpression independently, and combine the outputs. Use parentheses explicitly in the circuit design to avoid ambiguity.
+**Inputs:** A, B, C, D  
+**Output:** F7  
+**Challenge:** Implement the function using NAND and NOR gates with any required input inversions.
 
-### Equation 8: Advanced Combinational Logic
+### Equation 8: Six-Input Advanced Combinational Logic
 
-\[
-Y_8=(A\oplus B)(C\odot D)+\overline{(A+C)}EF
-\]
+```text
+F8 = ((A XOR B) & (C XNOR D))
+   | (!(A | B) & C & E)
+   | (A & B & !(D | F))
+```
 
-Here, \(\odot\) denotes the XNOR operation.
+**Inputs:** A, B, C, D, E, F  
+**Output:** F8  
+**Challenge:** Simplify the expression, design the circuit, and verify all 64 input combinations.
 
-**Challenge:** Implement the circuit with six inputs, compare a direct gate-level design with a simplified design, and verify all 64 input combinations.
+## 4. Experimental Procedure
 
-## 6. Procedure
+1. Identify all input variables and the output.
+2. Draw the logic circuit for each equation.
+3. Implement the circuit in Logisim Evolution, Proteus, or a digital logic trainer kit.
+4. Apply all possible input combinations.
+5. Record the expected and observed outputs.
+6. Simplify the Boolean expression using Boolean algebra.
+7. Build the simplified circuit and compare gate counts.
+8. Save the circuit diagrams, truth tables, and verification screenshots.
 
-1. Identify the input variables and output variable for each Boolean equation.
-2. Determine the required logic gates.
-3. Draw the logic circuit using standard digital logic symbols.
-4. Simplify the Boolean expression wherever possible.
-5. Build the circuit in a simulator or on a digital logic trainer kit.
-6. Apply all possible input combinations.
-7. Record the observed output for each combination.
-8. Compare the observed outputs with the theoretical truth table.
-9. Record the number of gates used before and after simplification.
+## 5. Truth Table Requirements
 
-## 7. Verification Table
+| Number of inputs | Required combinations |
+|---:|---:|
+| 4 | 16 |
+| 5 | 32 |
+| 6 | 64 |
 
-Use the following format to document experimental results.
+Use this format to record the results:
 
-| Input combination | Theoretical output | Observed output | Status |
+| Inputs | Expected output | Observed output | Status |
 |---|---|---|---|
 | 0000 |  |  |  |
 | 0001 |  |  |  |
 | 0010 |  |  |  |
-| 0011 |  |  |  |
 | ... |  |  |  |
-| Final combination |  |  |  |
 
-For equations with five or six inputs, extend the table to cover all 32 or 64 combinations, respectively.
+Extend the table to include every input combination required by each equation.
 
-## 8. Expected Results
+## 6. Performance Analysis
 
-- Successfully construct logic circuits from Boolean expressions.
-- Verify the outputs against theoretical truth tables.
-- Apply Boolean algebra and De Morgan's theorems to simplify circuits.
-- Compare alternative implementations in terms of gate count and logic depth.
-- Understand the relationship between Boolean expressions and digital hardware.
+For each circuit, record:
 
-## 9. Result
+- Number of AND gates
+- Number of OR gates
+- Number of NOT gates
+- Number of XOR/XNOR gates
+- Total gate count
+- Logic depth
+- Functional equivalence before and after simplification
 
-The logic circuits are designed and tested, and their outputs are verified against the corresponding Boolean expressions and truth tables.
+## 7. Expected Results
 
-*Record the actual experimental observations and verification results before finalizing this section.*
+The eight Boolean functions should be implemented successfully. Their outputs should match the theoretical truth tables for all input combinations.
 
-## 10. Viva Questions
+## 8. Result
 
-1. What is the difference between a universal gate and a basic logic gate?
-2. Why are NAND and NOR gates called universal gates?
-3. State and prove De Morgan's theorems.
-4. How can an XOR gate be implemented using basic gates?
-5. What is the difference between sum-of-products and product-of-sums representations?
-6. How does Boolean simplification reduce hardware complexity?
-7. What is the difference between logic depth and gate count?
-8. How many rows are required in the truth table for six input variables?
-9. Explain the difference between XOR and XNOR operations.
-10. Why is it necessary to verify every possible input combination?
+The logic circuits are designed, implemented, and verified using Boolean algebra and digital logic gates. The original and simplified circuits are compared based on gate count and logic depth.
 
-## 11. Repository Structure
+## 9. Repository Structure
 
 ```text
 EXPERIMENT-01-BUILDING-LOGICAL-CIRCUITS/
@@ -179,11 +179,13 @@ EXPERIMENT-01-BUILDING-LOGICAL-CIRCUITS/
 └── results/
 ```
 
-- `circuit_diagrams/` — Logic circuit diagrams.
-- `truth_tables/` — Theoretical and observed truth tables.
-- `simulation_files/` — Simulator project files.
-- `results/` — Screenshots, observations, and gate-count comparisons.
+## 10. Viva Questions
 
-## 12. Learning Outcome
-
-After completing this experiment, students will be able to design, implement, simplify, and verify combinational logic circuits using Boolean algebra and digital logic gates.
+1. What are universal logic gates?
+2. State De Morgan's theorems.
+3. What is the difference between SOP and POS?
+4. How does XOR differ from XNOR?
+5. How can Boolean expressions be simplified?
+6. How many truth-table rows are required for six inputs?
+7. What is logic depth?
+8. Why is functional verification necessary?
